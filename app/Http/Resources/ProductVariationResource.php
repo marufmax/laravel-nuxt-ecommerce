@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductResource extends ProductIndexResource
+class ProductVariationResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,8 +14,11 @@ class ProductResource extends ProductIndexResource
      */
     public function toArray($request)
     {
-        return array_merge(parent::toArray($request), [
-            'variation' => ProductVariationResource::collection($this->variations)
-        ]);
+        return [
+          'id'      => $this->id,
+          'name'    => $this->name,
+          'price'   => $this->price,
+          'order'   => $this->order,
+        ];
     }
 }

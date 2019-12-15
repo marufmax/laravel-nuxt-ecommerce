@@ -22,4 +22,10 @@ class Product extends Model
     {
         return (new Scoper(request()))->apply($builder, $scopes);
     }
+    
+    public function variations()
+    {
+        return $this->hasMany(ProductVariation::class)
+            ->orderBy('order');
+    }
 }
