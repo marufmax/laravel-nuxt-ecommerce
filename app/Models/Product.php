@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use App\Scoping\Scoper;
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\Traits\CanBeScoped;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    use CanBeScoped;
+    
     public function getRouteKeyName()
     {
         return 'slug';
@@ -16,11 +17,6 @@ class Product extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class);
-    }
-    
-    public function scopeWithScopes(Builder $builder, array $scopes = [])
-    {
-        return (new Scoper(request()))->apply($builder, $scopes);
     }
     
     public function variations()
