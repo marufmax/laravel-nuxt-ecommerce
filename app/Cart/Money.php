@@ -9,9 +9,16 @@ class Money
 {
     protected $money;
     
+    public $amount;
+    
     public function __construct($value)
     {
         $this->money = new BaseMoney($value, new Currency('BDT'));
+    }
+    
+    public function amount()
+    {
+        return $this->amount =  $this->money->getAmount();
     }
     
     public function formatted()
