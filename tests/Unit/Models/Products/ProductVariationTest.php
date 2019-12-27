@@ -6,6 +6,7 @@ use App\Cart\Money;
 use App\Models\Product;
 use App\Models\ProductVariation;
 use App\Models\ProductVariationType;
+use App\Models\Stock;
 use Tests\TestCase;
 
 class ProductVariationTest extends TestCase
@@ -72,5 +73,17 @@ class ProductVariationTest extends TestCase
         ]);
         
         $this->assertTrue($variation->priceVaries());
+    }
+    
+    /** @test */
+    function it_has_many_stocks()
+    {
+        $variation = factory(ProductVariation::class)->create();
+    
+        $variation->stocks()->save(
+            factory(Stock::class)->make()
+        );
+        
+        $this->assertInstanceOf(Stock::class, $variation->stocks->first());
     }
 }
