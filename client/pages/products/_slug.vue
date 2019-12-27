@@ -20,6 +20,34 @@
              {{ product.price }}
           </span>
           </section>
+
+          <section class="section">
+            <form action="">
+              <ProductVariation
+                v-for="(variation, type) in product.variations"
+                v-model="form.variation"
+                :type="type"
+                :variations="variation"
+                :key="type"
+              />
+
+              <div class="field has-addons">
+                <div class="control">
+                  <div class="select is-fullwidth">
+                    <select name="" id="">
+                      <option> 1 </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="control">
+                  <button type="submit"
+                          class="button is-info"
+                          :title="disabledTitle"
+                          :disabled="!isVariationExists">Add to cart</button>
+                </div>
+              </div>
+            </form>
+          </section>
         </div>
       </div>
     </div>
@@ -27,10 +55,20 @@
 </template>
 
 <script>
+  import ProductVariation from "@/components/Products/ProductVariation";
+
   export default {
+      name: 'ProductPage',
+      components: {
+          ProductVariation
+      },
       data() {
         return {
-            product: null
+            product: null,
+            form: {
+                variation: '',
+                quality: 1
+            }
         }
       },
       async asyncData({params, app}) {
@@ -39,6 +77,14 @@
         return {
             product: response.data
         }
+      },
+      computed: {
+          isVariationExists() {
+              return Object.keys(this.form.variation).length > 0;
+          },
+          disabledTitle() {
+              return this.isVariationExists ? null : 'Select a variation, Please?';
+          }
       }
   }
 </script>
