@@ -15,7 +15,7 @@ class CreateProductVariationOrderTable extends Migration
     {
         Schema::create('product_variation_order', function (Blueprint $table) {
             $table->unsignedInteger('order_id')->index();
-            $table->unsignedInteger('production_variation_id')->index();
+            $table->unsignedInteger('product_variation_id')->index();
             $table->unsignedInteger('quantity');
             $table->timestamps();
             
@@ -23,7 +23,7 @@ class CreateProductVariationOrderTable extends Migration
                 ->references('id')
                 ->on('products');
             
-            $table->foreign('production_variation_id')
+            $table->foreign('product_variation_id')
                 ->references('id')
                 ->on('product_variations');
         });
